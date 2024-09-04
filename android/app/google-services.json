@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "991307126024",
+    "project_id": "ellemoratest-a7628",
+    "storage_bucket": "ellemoratest-a7628.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991307126024:android:dd04f95309bf20373a88bd",
+        "android_client_info": {
+          "package_name": "com.example.almora_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991307126024-d3ar6shh28ei0t8qrecc74urt6r5g8nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.almora_test",
+            "certificate_hash": "0d7982b1fa25cfbe677952054f4d927dfc34e51c"
+          }
+        },
+        {
+          "client_id": "991307126024-t7tceqitqg4tl1ckscqjg2dhnmefhqr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDDNcx9_BMi73_urvFY7CfYNJo3g9Ps2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991307126024-t7tceqitqg4tl1ckscqjg2dhnmefhqr5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991307126024-js9p5povsr171dl1ka0r0ourin42k1kg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.almoraTest"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991307126024:android:506e458ee403c9433a88bd",
+        "android_client_info": {
+          "package_name": "com.example.web_mobril_tes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991307126024-t7tceqitqg4tl1ckscqjg2dhnmefhqr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDDNcx9_BMi73_urvFY7CfYNJo3g9Ps2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991307126024-t7tceqitqg4tl1ckscqjg2dhnmefhqr5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991307126024-js9p5povsr171dl1ka0r0ourin42k1kg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.almoraTest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

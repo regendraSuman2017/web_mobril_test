@@ -1,0 +1,11 @@
+import 'package:myTestApp/utils/export.dart';
+
+class AppFontFamily{
+  static String? josefinSans=GoogleFonts.josefinSans().fontFamily;
+  static String? barCodeText=GoogleFonts.libreBarcode39Text().fontFamily;
+  static String? ubuntu=GoogleFonts.ubuntu().fontFamily;
+  static String? alata=GoogleFonts.alata().fontFamily;
+  static String? hurricane=GoogleFonts.hurricane().fontFamily;
+  static String? lato=GoogleFonts.lato().fontFamily;
+  static String? inter=GoogleFonts.inter().fontFamily;
+}
