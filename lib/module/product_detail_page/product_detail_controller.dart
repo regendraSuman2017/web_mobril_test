@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_mobril_test/data/home/home_repo.dart';
 import 'package:web_mobril_test/data/home/home_repo_impl.dart';
+import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
 import 'package:web_mobril_test/data/model/get_select_product_response.dart';
 
 class ProductDetailController extends GetxController {
@@ -21,17 +22,13 @@ class ProductDetailController extends GetxController {
 
   List<Map<String, dynamic>> cartItem = [];
   // Method to add product to cart
-
+  final GetAllProductResponse product = Get.arguments;
 
 
 
   void addToWishList() {
     isInWishList.value = true;
   }
-
-  Stream<GetSelectProductResponse>? productsStream;
-  StreamController<GetSelectProductResponse> _streamController = StreamController.broadcast();
-
 
   TextEditingController searchText = TextEditingController();
 
@@ -48,7 +45,6 @@ class ProductDetailController extends GetxController {
 
     dynamic args = Get.arguments;
     final int id = await args[0]['id'];
-    productsStream = _streamController.stream;
     getSelectProducts(id);
 
 
@@ -56,7 +52,6 @@ class ProductDetailController extends GetxController {
 
   @override
   void dispose() {
-    _streamController.close();
     super.dispose();
   }
 
@@ -74,11 +69,9 @@ class ProductDetailController extends GetxController {
        price.value = response.price.toString();
 
       } else {
-        _streamController.sink.addError("No products available.");
       }
     } catch (e) {
 
-      _streamController.sink.addError("Failed to fetch products");
       Get.snackbar(
         "Failed",
         "Failed to fetch products",

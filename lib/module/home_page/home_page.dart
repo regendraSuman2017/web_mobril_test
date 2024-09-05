@@ -145,7 +145,7 @@ class HomePage extends GetView<HomePageController> {
 
         Obx(()=> SizedBox(
               height: Get.height*0.65,
-              child: controller.isLoading.value==true? Center(child: CircularProgressIndicator(),)
+              child: controller.isLoading.value==true? const Center(child: CircularProgressIndicator(),)
                   : ListView.builder(
            itemCount: controller.getProductFilterList.length,
            itemBuilder: (context, index) {
