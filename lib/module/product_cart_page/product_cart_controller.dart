@@ -31,7 +31,4 @@ getProduct() async {
   RxInt totalPrice = 0.obs;
 
 
-
-
-
 }
