@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Ellemora',
+                        'Web Mobril',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,

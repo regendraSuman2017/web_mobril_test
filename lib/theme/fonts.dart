@@ -1,4 +1,5 @@
-import 'package:myTestApp/utils/export.dart';
+
+import 'package:google_fonts/google_fonts.dart';
 
 class AppFontFamily{
   static String? josefinSans=GoogleFonts.josefinSans().fontFamily;

@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_mobril_test/CustomAppbar.dart';
 import 'package:web_mobril_test/core/icons.dart';
 import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
 import 'package:web_mobril_test/responsive.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
 import 'home_page_controller.dart';
 
 class HomePage extends GetView<HomePageController> {
@@ -20,8 +23,8 @@ class HomePage extends GetView<HomePageController> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text("Product List"),
+        appBar: CustomAppBar(
+          title: "Product List",
           actions: [
             InkWell(
                 onTap: ()async{
@@ -106,119 +109,138 @@ class HomePage extends GetView<HomePageController> {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 prefixIcon: AppIcons.searchIcon
               ),
-            ).marginOnly(top: 10),
+            ).marginOnly(top: 10,bottom: 10),
 
-         SizedBox(
-              height: Get.height*0.8,
-              child:StreamBuilder<List<GetAllProductResponse>>(
-                stream: controller.productsStream,
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No products available.'));
-                  } else {
-                    List<GetAllProductResponse> productList = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: productList.length,
-                      itemBuilder: (context, index) {
-                        GetAllProductResponse product = productList[index];
-                        return GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            Get.toNamed(Routes.productDetailScreen, arguments: [{'id': product.id}]);
-                          },
-                          child: Card(
-                            margin: EdgeInsets.only(top:
-                            ResponsiveLayout.isSmallScreen(context)
-                                ? widthSize * 0.035
-                                : ResponsiveLayout.isMediumScreen(context)
-                                ? widthSize * 0.035
-                                : widthSize * 0.017
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.network(
-                                    product.image!,
-                                    width: ResponsiveLayout.isSmallScreen(context)
-                                        ? widthSize * 0.17
-                                        : ResponsiveLayout.isMediumScreen(context)
-                                        ? widthSize * 0.15
-                                        : widthSize * 0.08,
-                                    height: ResponsiveLayout.isSmallScreen(context)
-                                        ? widthSize * 0.17
-                                        : ResponsiveLayout.isMediumScreen(context)
-                                        ? widthSize * 0.15
-                                        : widthSize * 0.08,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  const SizedBox(width: 16.0),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          product.title!,
-                                          style: TextStyle(
-                                            fontSize: ResponsiveLayout.isSmallScreen(context)
-                                                ? widthSize * 0.042
-                                                : ResponsiveLayout.isMediumScreen(context)
-                                                ? widthSize * 0.03
-                                                : widthSize * 0.02,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.02
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.02
-                                              : widthSize * 0.01,
-                                        ),
-                                        Text('\$${product.price}', style: TextStyle(
-                                          fontSize: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.038
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.027
-                                              : widthSize * 0.015,
-                                        )),
-                                        SizedBox(
-                                          height: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.01
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.01
-                                              : widthSize * 0.001,
-                                        ),
-                                        Text(
-                                          'Rating: ${product.rating!.rate} (${product.rating!.count} reviews)',
-                                          style: TextStyle(
-                                            fontSize: ResponsiveLayout.isSmallScreen(context)
-                                                ? widthSize * 0.038
-                                                : ResponsiveLayout.isMediumScreen(context)
-                                                ? widthSize * 0.027
-                                                : widthSize * 0.015,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
+            SizedBox(
+              height: 35,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.categoriesList.length,
+                itemBuilder: (_, index) {
+                  return Tooltip(
+                    message: controller.categoriesList[index],
+                    child: InkWell(
+                      onTap: (){
+                        print("dlsajkla ${controller.categoriesList[index]}");
+                        var name = controller.categoriesList[index];
+                        controller.filterItemsByCategory(name!);
                       },
-                    );
-                  }
+                      child: AnimatedContainer(
+                        margin: const EdgeInsets.only(left: 5),
+                        duration: const Duration(milliseconds: 500),
+                        height: 50,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(child: Text(controller.categoriesList[index].toString(),style: GoogleFonts.nunitoSans(color: white,fontWeight: FontWeight.w600),textAlign: TextAlign.center,))
+                      ),
+                    ),
+                  );
                 },
               ),
+            ),
 
+
+        Obx(()=> SizedBox(
+              height: Get.height*0.65,
+              child: controller.isLoading.value==true? Center(child: CircularProgressIndicator(),)
+                  : ListView.builder(
+           itemCount: controller.getProductFilterList.length,
+           itemBuilder: (context, index) {
+             GetAllProductResponse product = controller.getProductFilterList[index];
+             return GestureDetector(
+               onTap: () {
+                 FocusScope.of(context).unfocus();
+                 Get.toNamed(Routes.productDetailScreen, arguments: [{'id': product.id}]);
+               },
+               child: Card(
+                 margin: EdgeInsets.only(top:
+                 ResponsiveLayout.isSmallScreen(context)
+                     ? widthSize * 0.035
+                     : ResponsiveLayout.isMediumScreen(context)
+                     ? widthSize * 0.035
+                     : widthSize * 0.017
+                 ),
+                 child: Padding(
+                   padding: const EdgeInsets.all(16.0),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Image.network(
+                         product.image!,
+                         width: ResponsiveLayout.isSmallScreen(context)
+                             ? widthSize * 0.17
+                             : ResponsiveLayout.isMediumScreen(context)
+                             ? widthSize * 0.15
+                             : widthSize * 0.08,
+                         height: ResponsiveLayout.isSmallScreen(context)
+                             ? widthSize * 0.17
+                             : ResponsiveLayout.isMediumScreen(context)
+                             ? widthSize * 0.15
+                             : widthSize * 0.08,
+                         fit: BoxFit.cover,
+                       ),
+                       const SizedBox(width: 16.0),
+                       Expanded(
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           children: [
+                             Text(
+                               product.title!,
+                               style: TextStyle(
+                                 fontSize: ResponsiveLayout.isSmallScreen(context)
+                                     ? widthSize * 0.042
+                                     : ResponsiveLayout.isMediumScreen(context)
+                                     ? widthSize * 0.03
+                                     : widthSize * 0.02,
+                                 fontWeight: FontWeight.bold,
+                               ),
+                             ),
+                             SizedBox(
+                               height: ResponsiveLayout.isSmallScreen(context)
+                                   ? widthSize * 0.02
+                                   : ResponsiveLayout.isMediumScreen(context)
+                                   ? widthSize * 0.02
+                                   : widthSize * 0.01,
+                             ),
+                             Text('\$${product.price}', style: TextStyle(
+                               fontSize: ResponsiveLayout.isSmallScreen(context)
+                                   ? widthSize * 0.038
+                                   : ResponsiveLayout.isMediumScreen(context)
+                                   ? widthSize * 0.027
+                                   : widthSize * 0.015,
+                             )),
+                             SizedBox(
+                               height: ResponsiveLayout.isSmallScreen(context)
+                                   ? widthSize * 0.01
+                                   : ResponsiveLayout.isMediumScreen(context)
+                                   ? widthSize * 0.01
+                                   : widthSize * 0.001,
+                             ),
+                             Text(
+                               'Rating: ${product.rating!.rate} (${product.rating!.count} reviews)',
+                               style: TextStyle(
+                                 fontSize: ResponsiveLayout.isSmallScreen(context)
+                                     ? widthSize * 0.038
+                                     : ResponsiveLayout.isMediumScreen(context)
+                                     ? widthSize * 0.027
+                                     : widthSize * 0.015,
+                               ),
+                             ),
+                           ],
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+               ),
+             );
+           },
+         ),
+        )
          )
           ],
         ).paddingSymmetric(horizontal:  ResponsiveLayout.isSmallScreen(context)

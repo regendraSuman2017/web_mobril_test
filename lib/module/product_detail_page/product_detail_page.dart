@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_mobril_test/CustomAppbar.dart';
 import 'package:web_mobril_test/module/product_detail_page/product_detail_controller.dart';
 import 'package:web_mobril_test/responsive.dart';
 
@@ -15,110 +16,12 @@ class ProductDetailPage extends GetView<ProductDetailController> {
       desktopBody: myDesktopBody(context),
     );
 
-    /* return Scaffold(
-      appBar: AppBar(
-        title: Text('Product Detail'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child:Obx(()=>controller.isLoading.value? Center(child: CircularProgressIndicator(),): Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-              Container(
-                   height: ResponsiveLayout.isSmallScreen(context)
-            ? Get.width*0.17
-            : ResponsiveLayout.isMediumScreen(context)
-            ? Get.width*0.15
-            : Get.width*0.2,
-                  child: controller.imageUrl.isEmpty? Text("Image loading")
-                      : Image.network(controller.imageUrl.value,
-                    width: ResponsiveLayout.isSmallScreen(context)
-                        ? Get.width*0.17
-                        : ResponsiveLayout.isMediumScreen(context)
-                        ? Get.width*0.15
-                        : Get.width*0.2,fit: BoxFit.fill,)),
-            SizedBox(height: 15,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-                width: Get.width*0.5,
-                child:
-          Text(controller.title.toString(),
-            style: TextStyle(
-                color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w600
-            ),
-            maxLines: 2,)),
-          Text(controller.price.toString(),style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w600
-          ),),
-          ]),
-SizedBox(height: 15,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Description",
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600
-              ),),
-          Text(controller.description.toString(), style: TextStyle(
 
-              fontSize: 14,
-              fontWeight: FontWeight.w500
-          ),),
-
-            ],
-          ),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if(controller.cartItem.contains(controller.id)) {
-
-                    }else{
-                      controller.cartItem.add({
-                        "id": controller.id,
-                        'title': controller.title,
-                      });
-                    }
-
-                  },
-                  child: Text('Add to Cart'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if(controller.cartItem.contains(controller.id)) {
-
-                    }else{
-                      controller.cartItem.add({
-                        "id": controller.id,
-                        'title': controller.title,
-                      });
-                    }
-
-                  },
-                  child: Text('Add to Cart'),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-      )
-    );*/
   }
   myMobileBody(context){
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Product Detail'),
+        appBar: CustomAppBar(
+          title: 'Product Detail',
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

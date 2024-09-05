@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
 
@@ -14,7 +15,7 @@ class LoginScreenController extends GetxController{
   TextEditingController passwordController = TextEditingController();
   FocusNode? focusNode;
 
-  static final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -27,6 +28,7 @@ class LoginScreenController extends GetxController{
   }
 
   RxBool isSigningUp = false.obs;
+  RxBool passwordVisibility = false.obs;
 
 @override
   void onInit() {
@@ -34,10 +36,13 @@ class LoginScreenController extends GetxController{
     super.onInit();
     focusNode = FocusNode();
   }
+  void passwordToggle() {
+    passwordVisibility.value = passwordVisibility.value ? false : true;
+  }
 
 
   void loginUser() async {
-   /* showDialog(
+    showDialog(
         context: Get.context!,
         builder: (BuildContext _) => Center(
           child: LoadingAnimationWidget.threeArchedCircle(
@@ -46,9 +51,8 @@ class LoginScreenController extends GetxController{
           ),
         )
     );
-*/
-
     try {
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),

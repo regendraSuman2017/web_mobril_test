@@ -8,6 +8,7 @@ abstract class Routes {
   static const  String loginScreen = _Paths.loginScreen;
   static const String signUpScreenView = _Paths.signUpScreenView;
   static const String productDetailScreen = _Paths.productDetailScreen;
+  static const String dashBoardScreen = _Paths.dashBoardScreen;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const  String  loginScreen = '/login_screen_view.dart';
   static const  String  signUpScreenView = '/signup_screen_view.dart';
   static const  String  productDetailScreen = '/product_detail_page.dart';
+  static const  String  dashBoardScreen = '/dashboard.dart';
 }

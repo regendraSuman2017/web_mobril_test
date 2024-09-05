@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_commerce_flutter/src/model/product.dart';
-import 'package:e_commerce_flutter/src/view/animation/open_container_wrapper.dart';
+import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
 
 class ProductGridView extends StatelessWidget {
   const ProductGridView({
@@ -10,11 +9,11 @@ class ProductGridView extends StatelessWidget {
     required this.likeButtonPressed,
   });
 
-  final List<Product> items;
-  final bool Function(Product product) isPriceOff;
+  final List<GetAllProductResponse> items;
+  final bool Function(GetAllProductResponse product) isPriceOff;
   final void Function(int index) likeButtonPressed;
 
-  Widget _gridItemHeader(Product product, int index) {
+  Widget _gridItemHeader(GetAllProductResponse product, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
@@ -36,32 +35,24 @@ class ProductGridView extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: items[index].isFavorite
-                  ? Colors.redAccent
-                  : const Color(0xFFA6A3A0),
-            ),
-            onPressed: () => likeButtonPressed(index),
-          ),
+
         ],
       ),
     );
   }
 
-  Widget _gridItemBody(Product product) {
+  Widget _gridItemBody(GetAllProductResponse product) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: const Color(0xFFE5E6E8),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Image.asset(product.images[0], scale: 3),
+      child: Image.asset(product.image!, scale: 3),
     );
   }
 
-  Widget _gridItemFooter(Product product, BuildContext context) {
+  Widget _gridItemFooter(GetAllProductResponse product, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -80,7 +71,7 @@ class ProductGridView extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                product.name,
+                product.title.toString(),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: const TextStyle(
@@ -93,14 +84,14 @@ class ProductGridView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  product.off != null
-                      ? "\$${product.off}"
+                  product.price!= null
+                      ? "\$20"
                       : "\$${product.price}",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(width: 3),
                 Visibility(
-                  visible: product.off != null ? true : false,
+                  visible: product.price != null ? true : false,
                   child: Text(
                     "\$${product.price}",
                     style: const TextStyle(
@@ -133,15 +124,8 @@ class ProductGridView extends StatelessWidget {
           crossAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          Product product = items[index];
-          return OpenContainerWrapper(
-            product: product,
-            child: GridTile(
-              header: _gridItemHeader(product, index),
-              footer: _gridItemFooter(product, context),
-              child: _gridItemBody(product),
-            ),
-          );
+          GetAllProductResponse product = items[index];
+          return Text("");
         },
       ),
     );

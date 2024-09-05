@@ -18,8 +18,9 @@ class HttpServiceImpl implements HttpService {
     Response response;
     try {
       response = await _dio.get(UrlConstant.getAllProducts);
-
+      print("lkajsdlk ${response}");
     } on DioException catch (e) {
+      print("sdjksdjkjdk 1");
       throw Exception(e.message);
     }
     return response;

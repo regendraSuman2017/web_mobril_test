@@ -5,19 +5,172 @@ import 'package:web_mobril_test/module/signup_screen/signup_screen_controller.da
 import 'package:web_mobril_test/responsive.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
 import 'package:web_mobril_test/utils/validator.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:web_mobril_test/CustomAppbar.dart';
+import 'package:web_mobril_test/core/icons.dart';
+import 'package:web_mobril_test/core/widgets/custom_elevated_button.dart';
+import 'package:web_mobril_test/core/widgets/text_Form_Field_Component.dart';
+import 'package:web_mobril_test/module/login_screen/login_screen_controller.dart';
+import 'package:web_mobril_test/module/login_screen/widgets/login_width_google.dart';
+import 'package:web_mobril_test/responsive.dart';
+import 'package:web_mobril_test/routes/app_pages.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/theme/app_font_weight.dart';
+import 'package:web_mobril_test/theme/text_style.dart';
+import 'package:web_mobril_test/theme/typography_constant.dart';
+import 'package:web_mobril_test/utils/assets_image.dart';
+import 'package:web_mobril_test/utils/validator.dart';
 
 class SignUpScreenView extends GetView<SignUpScreenController>{
   const SignUpScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool obscureText = true;
-    double widthSize = Get.width;
 
-    double width = ResponsiveLayout.isSmallScreen(context) ? widthSize/1: widthSize / 2;
+    return GestureDetector(
+      onTap: () => Get.focusScope!.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset : false,
+        backgroundColor: Colors.white,
+        appBar: const CustomWhiteAppBar(
+          elevation: 0,
+          title: "Let's Signup",
+          spacing: 5.0,
+        ),
+        body: Container(
+          height: Get.height*0.9,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Form(
+                key: controller.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(AssetsImage.loginScreeImg,width: Get.height*0.25,alignment: Alignment.center),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextFieldComponent(
+                              hintText: 'Enter user name',
+                              obscureText: false,
+                              contentPadding:EdgeInsets.all(Get.width * 0.023),
+                              keyboardType: TextInputType.emailAddress,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(RegExp(r'\s'),),
+                              ],
+                              controller: controller.nameController,
+                              validator: (value) {
+                                if(value!.isEmpty){
+                                  return "Enter user name";
+                                }
+                                return null;
+                              },
+
+                            ),
+                        SizedBox(height:Get.height*0.01),
+                        TextFieldComponent(
+                              hintText: 'Enter Email',
+                              obscureText: false,
+                              contentPadding:EdgeInsets.all(Get.width * 0.023),
+                              keyboardType: TextInputType.emailAddress,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(RegExp(r'\s'),),
+                              ],
+                              controller: controller.emailController,
+                              validator: (value) {
+                                return Validator().validateEmail(value!);
+                              },
 
 
-    return Scaffold(
+                            ),
+                        SizedBox(height:Get.height*0.01),
+                        TextFieldComponent(
+                          hintText: 'Enter Password',
+                          contentPadding:EdgeInsets.all(Get.height * 0.025),
+                          controller: controller.passwordController,
+                          validator: (value){
+                            return Validator().validatePassword(value!);
+                          },
+                        ),
+                        SizedBox(height:Get.height*0.01),
+                      ],
+                    ),
+
+                    SizedBox(height:Get.height*0.02),
+
+                    SizedBox(
+                        width: Get.width - 20,
+                        height: Get.height * 0.07,
+                        child:CustomElevatedButton(title: 'Signup',
+                            onPress: () async {
+                              final isValid = controller.formKey.currentState?.validate();
+                              if (!isValid!) {
+                                return;
+                              }
+                              controller.registerUser();
+                              return;
+                            }
+
+                        )
+                    ),
+                    SizedBox(height:Get.height*0.014),
+                    Row(children: [
+                      const Expanded(child: Divider(color: darkGrey,)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text('or continue with', style: TextStyle(fontSize: Get.width*0.038,color: darkGrey)),
+                      ),
+                      const Expanded(child: Divider(color: darkGrey,)),
+                    ]),
+                    SizedBox(height:Get.height*0.01),
+                    const LoginWidthGoogle(),
+
+
+                    SizedBox(height: Get.height*0.049,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Already have an account? ',
+                          style:TextStyle(
+                            color: Colors.black54,
+                            fontWeight: AppFontWeight.fontSemiBold,
+                            letterSpacing: letterSpacing,
+                            fontSize:Get.width*0.04,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.loginScreen);
+                          },
+                          child: Text('Login',
+                            style: AppTextStyle.outlineButtonText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+    /*return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -127,7 +280,7 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
                         return;
                       }
 
-                      controller.registerUser();();
+                      ();
                     },
                     child: Container(
                       width: double.infinity,
@@ -150,24 +303,6 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
                           )),
                     ),
                   ),
-                  const SizedBox(height: 10),
-
-                  Row(children: <Widget>[
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        'OR',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize:ResponsiveLayout.isSmallScreen(context)
-                              ? widthSize*0.045
-                              : ResponsiveLayout.isMediumScreen(context)
-                              ? widthSize*0.035
-                              : widthSize*0.021,),
-                        textScaler: const TextScaler.linear(1),
-                      ),
                     ),
                     const Expanded(child: Divider()),
                   ]),
@@ -210,29 +345,8 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       Text("Already have an account? ",style: TextStyle( fontSize:ResponsiveLayout.isSmallScreen(context)
-                          ? widthSize*0.045
-                          : ResponsiveLayout.isMediumScreen(context)
-                          ? widthSize*0.03
-                          : widthSize*0.017,),),
-                      const SizedBox(height: 5),
-                      GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.loginScreen);
-                          },
-                          child:  Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold,
-                              fontSize:ResponsiveLayout.isSmallScreen(context)
-                                  ? widthSize*0.045
-                                  : ResponsiveLayout.isMediumScreen(context)
-                                  ? widthSize*0.03
-                                  : widthSize*0.017,),
-                          )),
+
+
 
                     ],
                   )
@@ -243,6 +357,6 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
 
         ),
       ),
-    );
+    );*/
   }
 }

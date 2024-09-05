@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 
 
 
-const secondaryColor = Color(0xFF8F6D2D);
- const primaryColor = Color(0xFF536DA8);
-//const secondaryColor = Color(0xff3BD6DD);
-// //const secondaryColor = Color(0xff3BD6DD);
- const white = Color(0xffffffff);
+const primaryColor = Color(0xfffbb448);
+const secondaryColor = Color(0xfff7892b);
+
+const appBarColor = LinearGradient(
+ colors: [
+  primaryColor,
+  secondaryColor,
+ ],
+);
+
+const white = Color(0xffffffff);
  const buttonPrimary = Color(0xFF00AA88);
  var customBlack = Colors.black54;
  const settingTextColor = Color(0xFf5B5B5B);
@@ -27,12 +33,7 @@ const secondaryColor = Color(0xFF8F6D2D);
  var lightGreyBorder = Colors.grey.shade200;
  var lightGreyBorder2 = Colors.grey.shade300;
  const lightGray = Color(0xffefefef);
-const appBarColor = LinearGradient(
-  colors: [
-    primaryColor,
-    primaryColor,
-  ],
-);
+
 
  const greenColor = Color(0xFF1a8e81);
 

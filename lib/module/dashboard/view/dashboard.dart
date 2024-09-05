@@ -1,67 +1,84 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:web_mobril_test/core/icons.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:web_mobril_test/module/dashboard/controller/dashboard_controller.dart';
 import 'package:web_mobril_test/module/home_page/home_page.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
 
 // ignore: must_be_immutable
 class Dashboard extends GetView<DashboardController> {
   @override
-  final controller = Get.find<DashboardController>();
   Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: true,
-        onPopInvoked: (didPop) {
-
-        },
-        child: Obx(() => PersistentTabView(
-              floatingActionButton: null,
-              navBarHeight: 65,
-              controller: controller.persistentTabController,
-              stateManagement: true,
-              popAllScreensOnTapOfSelectedTab: false,
-              popActionScreens: PopActionScreensType.all,
-              screenTransitionAnimation: const ScreenTransitionAnimation.none(),
-              tabs: _navBarsItems(),
-              onTabChanged: (value) {
-
-              },
-              navBarBuilder: (navBarConfig) => Style13BottomNavBar(
-                navBarConfig: navBarConfig,
+    return PersistentTabView(
+      context,
+      navBarHeight: 50,
+      controller: controller.persistentTabController,
+      screens:_buildScreens(),
+      items: _navBarsItems(),
+      //confineInSafeArea: true,
+      confineToSafeArea: true,
+      stateManagement: false,
+      decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(0.0),
+          boxShadow: [
+            const BoxShadow(
+              color: lightGray,
+              offset: Offset(
+                0.0,
+                -5.0,
               ),
+              blurRadius: 10.0,
+              spreadRadius: -5.0,
+            ), //
+          ]),
+      navBarStyle: NavBarStyle.style1,
 
-            )));
-  }
-
-
-
-  List<PersistentTabConfig> _navBarsItems() {
-    return [
-      PersistentTabConfig(
-        screen: HomePage(),
-        item: ItemConfig(
-          activeForegroundColor: Colors.black26,
-          inactiveForegroundColor: Colors.black26,
-          icon: AppIcons.searchIcon,
-          title: ("OnHomeHomeButton".tr),
-        ),
-      ),
-
-      PersistentTabConfig(
-        screen: HomePage(),
-        item: ItemConfig(
-          activeForegroundColor: Colors.black26,
-          inactiveForegroundColor: Colors.black26,
-          icon: AppIcons.searchIcon,
-          title: ('OnHomeSettingsButton'.tr),
-          // title: ("OnHomeHomeButton".tr),
-        ),
-      ),
-    ];
+      onItemSelected: (value) async {},
+    )
+    ;
   }
 }
+
+List<Widget> _buildScreens() {
+  return [
+     const HomePage(),
+    const HomePage(),
+    const HomePage(),
+    const HomePage(),
+  ];
+}
+
+List<PersistentBottomNavBarItem> _navBarsItems() {
+  return [
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.home,size: 25),
+      title: "Home",
+      activeColorPrimary: secondaryColor,
+      inactiveColorPrimary: primaryColor,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.favorite,size: 20),
+      title: "Favorite",
+      activeColorPrimary: secondaryColor,
+      inactiveColorPrimary: primaryColor,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.shopping_basket ,size: 20),
+      title: "cart",
+      activeColorPrimary: secondaryColor,
+      inactiveColorPrimary: primaryColor,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(Icons.person,size: 20),
+      title: "profile",
+      activeColorPrimary: secondaryColor,
+      inactiveColorPrimary: primaryColor,
+    ),
+  ];
+}
+
+

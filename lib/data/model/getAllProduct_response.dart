@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class GetAllProductResponse {
   int? id;
   String? title;
@@ -6,6 +8,8 @@ class GetAllProductResponse {
   String? category;
   String? image;
   Rating? rating;
+  bool? isSelected;
+  IconData? icon;
 
   GetAllProductResponse(
       {this.id,
@@ -14,7 +18,8 @@ class GetAllProductResponse {
         this.description,
         this.category,
         this.image,
-        this.rating});
+        this.isSelected = false,
+        required this.icon,});
 
   GetAllProductResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];

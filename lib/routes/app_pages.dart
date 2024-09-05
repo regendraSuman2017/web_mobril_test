@@ -1,5 +1,7 @@
 
 import 'package:get/get.dart';
+import 'package:web_mobril_test/module/dashboard/binding/dashboard_binding.dart';
+import 'package:web_mobril_test/module/dashboard/view/dashboard.dart';
 import 'package:web_mobril_test/module/home_page/home_page.dart';
 import 'package:web_mobril_test/module/home_page/home_page_binding.dart';
 import 'package:web_mobril_test/module/login_screen/login_screen_binding.dart';
@@ -23,6 +25,7 @@ class AppPages {
     GetPage(name: _Paths.productDetailScreen, page: () =>  const ProductDetailPage(), binding: ProductDetailBinding()),
     GetPage(name: _Paths.signUpScreenView, page: () => const SignUpScreenView(), binding: SignUpScreenBinding()),
     GetPage(name: _Paths.loginScreen, page: () => const LoginScreenView(), binding: LoginScreenBinding()),
+    GetPage(name: _Paths.dashBoardScreen, page: () =>  Dashboard(), binding: DashboardBinding()),
 
   ];
 }

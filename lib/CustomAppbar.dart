@@ -1,5 +1,8 @@
 
-import 'package:myTestApp/utils/export.dart';
+import 'package:flutter/material.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/theme/text_style.dart';
+
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -21,12 +24,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Material(
       elevation: elevation,
       child: Container(
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           gradient: appBarColor,
         ),
         child: AppBar(
           elevation: 0.0,
-          title: Text(title!,style: AppTextStyle.appTitle,),
+            title: Text(title!,style: AppTextStyle.appTitle,),
           backgroundColor: Colors.transparent,
           actions: actions,
           leading: leading,

@@ -1,9 +1,21 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:web_mobril_test/CustomAppbar.dart';
+import 'package:web_mobril_test/core/icons.dart';
+import 'package:web_mobril_test/core/widgets/custom_elevated_button.dart';
+import 'package:web_mobril_test/core/widgets/text_Form_Field_Component.dart';
 import 'package:web_mobril_test/module/login_screen/login_screen_controller.dart';
+import 'package:web_mobril_test/module/login_screen/widgets/login_width_google.dart';
 import 'package:web_mobril_test/responsive.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/theme/app_font_weight.dart';
+import 'package:web_mobril_test/theme/text_style.dart';
+import 'package:web_mobril_test/theme/typography_constant.dart';
+import 'package:web_mobril_test/utils/assets_image.dart';
 import 'package:web_mobril_test/utils/validator.dart';
 
 class LoginScreenView extends GetView<LoginScreenController>{
@@ -12,239 +24,157 @@ class LoginScreenView extends GetView<LoginScreenController>{
   @override
   Widget build(BuildContext context) {
 
-    bool obscureText = true;
-    double widthSize = Get.width;
-    double width = ResponsiveLayout.isSmallScreen(context) ? widthSize/1: widthSize / 2;
 
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: SizedBox(
-            width: ResponsiveLayout.isSmallScreen(context)
-                ? width
-                : ResponsiveLayout.isMediumScreen(context)
-                ? widthSize/1.5
-                : width/1,
-            child: Form(
-              key: LoginScreenController.formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                   Text(
-                    "Login",
-                    style: TextStyle(fontSize: ResponsiveLayout.isSmallScreen(context)
-                        ? widthSize*0.07
-                        : ResponsiveLayout.isMediumScreen(context)
-                        ? widthSize*0.04
-                        : widthSize*0.05,
-                        fontWeight: FontWeight.bold),
-                  ),
-                    const SizedBox(
-                    height:  40,
-                  ),
-                   TextFormField(
-                    focusNode: controller.focusNode,
-                    decoration: InputDecoration(
-                      labelText: 'Enter email id',
-                      labelStyle:  TextStyle(
-                        fontSize: ResponsiveLayout.isSmallScreen(context)
-                            ? widthSize*0.04
-                            : ResponsiveLayout.isMediumScreen(context)
-                            ? widthSize*0.025
-                            : widthSize*0.017,
-                      ),
-                      contentPadding: EdgeInsets.all(
-                          ResponsiveLayout.isSmallScreen(context)
-                          ? widthSize*0.035
-                          : ResponsiveLayout.isMediumScreen(context)
-                          ? widthSize*0.035
-                          : widthSize*0.017),
-                      border: const OutlineInputBorder()
-                      ),
+    return GestureDetector(
+      onTap: () => Get.focusScope!.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset : false,
+        backgroundColor: Colors.white,
+        appBar: const CustomWhiteAppBar(
+          elevation: 0,
+          title: "Let's Login",
+          spacing: 5.0,
+        ),
+        body: Container(
+          height: Get.height*0.9,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Form(
+                key: controller.loginFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(AssetsImage.loginScreeImg,width: Get.height*0.25,alignment: Alignment.center),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("User Id",style: GoogleFonts.nunitoSans(fontSize: Get.width*0.045,fontWeight: FontWeight.w700),),
+                            TextFieldComponent(
+                              hintText: 'Enter Email/phone'.tr,
+                              obscureText: false,
+                              contentPadding:EdgeInsets.all(Get.width * 0.023),
+                              keyboardType: TextInputType.emailAddress,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(RegExp(r'\s'),),
+                              ],
+                              controller: controller.emailController,
+                              validator: (value) {
+                                return Validator().validateEmail(value!);
+                              },
+                              suffixIcon:const Icon(Icons.person),
 
-                    controller: controller.emailController,
-                    validator: (String? value){
-                      return Validator().validateEmail(value!);
-                    },
-                  ),
-                   SizedBox(height: ResponsiveLayout.isSmallScreen(context)
-                      ? widthSize*0.06
-                      : ResponsiveLayout.isMediumScreen(context)
-                      ? widthSize*0.04
-                      : widthSize*0.015,),
-                  StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      return TextFormField(
-                          obscureText: obscureText,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            contentPadding: EdgeInsets.all(
-                                ResponsiveLayout.isSmallScreen(context)
-                                    ? widthSize*0.035
-                                    : ResponsiveLayout.isMediumScreen(context)
-                                    ? widthSize*0.035
-                                    : widthSize*0.017),
-                            labelStyle:  TextStyle(
-                              fontSize: ResponsiveLayout.isSmallScreen(context)
-                                  ? widthSize*0.04
-                                  : ResponsiveLayout.isMediumScreen(context)
-                                  ? widthSize*0.025
-                                  : widthSize*0.017,
                             ),
-
-                            border: const OutlineInputBorder(),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                obscureText
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
+                          ],
+                        ),
+                        SizedBox(height:Get.height*0.01),
+                        Obx(()=>Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Password",style: GoogleFonts.nunitoSans(fontSize: Get.width*0.045,fontWeight: FontWeight.w700),),
+                            TextFieldComponent(
+                              hintText: 'Enter Password',
+                              obscureText: controller.passwordVisibility.value?false:true,
+                              contentPadding:EdgeInsets.all(Get.height * 0.025),
+                              controller: controller.passwordController,
+                              suffixIcon: IconButton(
+                                onPressed: (){
+                                  controller.passwordToggle();
+                                },
+                                icon: controller.passwordVisibility.value?AppIcons.backIcon:AppIcons.eyeOffIcon,
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  obscureText = !obscureText;
-                                });
+                              validator: (value){
+                                return Validator().validatePassword(value!);
                               },
                             ),
+                          ],
+                        )),
+                        SizedBox(height:Get.height*0.01),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Reset password?'.tr,
+                          style: AppTextStyle.outlineButtonText,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:Get.height*0.02),
+
+                    SizedBox(
+                        width: Get.width - 20,
+                        height: Get.height * 0.07,
+                        child:CustomElevatedButton(title: 'Login',
+                            onPress: () async {
+
+                                final isValid = controller.loginFormKey.currentState?.validate();
+                                if (!isValid!) {
+                                  return;
+                                }
+controller.loginUser();
+                                return;
+                              }
+
+                        )
+                    ),
+                    SizedBox(height:Get.height*0.014),
+                    Row(children: [
+                      const Expanded(child: Divider(color: darkGrey,)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text('or continue with', style: TextStyle(fontSize: Get.width*0.038,color: darkGrey)),
+                      ),
+                      const Expanded(child: Divider(color: darkGrey,)),
+                    ]),
+                    SizedBox(height:Get.height*0.01),
+                    const LoginWidthGoogle(),
+
+
+                    SizedBox(height: Get.height*0.049,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('${"Don't"} have an account? ',
+                          style:TextStyle(
+                            color: Colors.black54,
+                            fontWeight: AppFontWeight.fontSemiBold,
+                            letterSpacing: letterSpacing,
+                            fontSize:Get.width*0.04,
+                            decoration: TextDecoration.none,
                           ),
-                          controller: controller.passwordController,
-                        validator: (String? value){
-                          return Validator().validatePassword(value!);
-                        },
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 30),
-                  GestureDetector(
-                    onTap:  (){
-
-              bool isValid = LoginScreenController.formKey.currentState!.validate();
-
-                if(!isValid){
-                  return;
-                }
-
-                      controller.loginUser();
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: ResponsiveLayout.isSmallScreen(context)
-                          ? widthSize*0.11
-                          : ResponsiveLayout.isMediumScreen(context)
-                          ? widthSize*0.075
-                          : widthSize*0.042,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                          child: controller.isSigningUp.value ? const CircularProgressIndicator(color: Colors.white,)
-                              : Text(
-                            "Log In",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              fontSize:ResponsiveLayout.isSmallScreen(context)
-                                  ? widthSize*0.045
-                                  : ResponsiveLayout.isMediumScreen(context)
-                                  ? widthSize*0.035
-                                  : widthSize*0.021,),
-                          )),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(children: <Widget>[
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        'OR',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize:ResponsiveLayout.isSmallScreen(context)
-                              ? widthSize*0.045
-                              : ResponsiveLayout.isMediumScreen(context)
-                              ? widthSize*0.035
-                              : widthSize*0.021,),
-                        textScaler: const TextScaler.linear(1),
-                      ),
-                    ),
-                    const Expanded(child: Divider()),
-                  ]),
-
-                  GestureDetector(
-                    onTap:  (){
-                      controller.signInWithGoogle();
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                          child: controller.isSigningUp.value
-                              ? const CircularProgressIndicator(color: Colors.white,)
-                              : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/google.png',
-                                  height: ResponsiveLayout.isSmallScreen(context)
-                                      ? widthSize*0.065
-                                      : ResponsiveLayout.isMediumScreen(context)
-                                      ? widthSize*0.035
-                                      : widthSize*0.017),
-                               Text(
-                                "Login with Google",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:ResponsiveLayout.isSmallScreen(context)
-                                      ? widthSize*0.045
-                                      : ResponsiveLayout.isMediumScreen(context)
-                                      ? widthSize*0.035
-                                      : widthSize*0.021,),
-                              ).paddingSymmetric(horizontal: 10),
-                            ],
-                          )),
-                    ),
-                  ),
-
-
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       Text("Don't have an account? ",style: TextStyle( fontSize:ResponsiveLayout.isSmallScreen(context)
-                          ? widthSize*0.045
-                          : ResponsiveLayout.isMediumScreen(context)
-                          ? widthSize*0.03
-                          : widthSize*0.017,),),
-                      const SizedBox(height: 5),
-                      GestureDetector(
-                          onTap: () {
+                        ),
+                        InkWell(
+                          onTap: (){
                             Get.toNamed(Routes.signUpScreenView);
                           },
-                          child:  Text(
-                            "Signup",
-                            style: TextStyle(
-                                color: Colors.blue, fontWeight: FontWeight.bold,
-                              fontSize:ResponsiveLayout.isSmallScreen(context)
-                                  ? widthSize*0.045
-                                  : ResponsiveLayout.isMediumScreen(context)
-                                  ? widthSize*0.03
-                                  : widthSize*0.017,),
-                          ))
-                    ],
-                  )
-                ],
+                          child: Text('Create Account',
+                            style: AppTextStyle.outlineButtonText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ).paddingSymmetric(horizontal: widthSize*0.03),
+
+            ],
           ),
         ),
       ),
     );
+
   }
 }

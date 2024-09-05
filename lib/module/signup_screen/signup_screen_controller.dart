@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
+import 'package:web_mobril_test/service/firebase_auth_services.dart';
 
 
 class SignUpScreenController extends GetxController{
@@ -14,6 +16,7 @@ class SignUpScreenController extends GetxController{
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -32,7 +35,7 @@ class SignUpScreenController extends GetxController{
 
   void registerUser() async {
 
-   /* showDialog(
+    showDialog(
         context: Get.context!,
         builder: (BuildContext _) => Center(
           child: LoadingAnimationWidget.threeArchedCircle(
@@ -40,12 +43,21 @@ class SignUpScreenController extends GetxController{
             size: Get.width*0.12,
           ),
         )
-    );*/
+    );
 
 
     try {
       isSigningUp.value = true;
-       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim())
+        .then((value) => {postDetailsToFirestore()})
+        .catchError((e) {
+    Fluttertoast.showToast(msg: e!.message);
+    });
+
+      /* await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -66,7 +78,7 @@ class SignUpScreenController extends GetxController{
       );
       Future.delayed(const Duration(seconds: 1));
       Get.offAllNamed(Routes.loginScreen);
-
+*/
 
     } catch (e) {
       Navigator.of(Get.context!).pop();
@@ -87,6 +99,39 @@ class SignUpScreenController extends GetxController{
     }
   }
 
+  postDetailsToFirestore() async {
+
+    DocumentReference docRef = await FirebaseFirestore.instance.collection('RegisterUsers')
+        .add({
+      'name': nameController.text,
+      'emailId': emailController.text,
+      'password': passwordController.text,
+    });
+   print("aldsalk ${docRef}");
+    Get.back();
+
+    if(docRef!=null){
+     Fluttertoast.showToast(msg: "Account Created Successfully :)");
+    Future.delayed(const Duration(seconds: 1));
+    Get.offAllNamed(Routes.loginScreen);
+   }
+
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+
+   /* return FirebaseAuthService().user.add({
+      'name': nameController.text,
+      'emailId': emailController.text,
+      'password': passwordController.text}).then((value)
+        {Fluttertoast.showToast(msg: "Account Created Successfully :)");})
+        .catchError((error) => print('Failed to Add user: $error'));
+*/
+
+  /*  Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => Home()), (route) => false);
+  */
+  }
 
 
   Future<UserCredential?> signUpWithGoogle() async {
