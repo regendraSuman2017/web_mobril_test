@@ -25,9 +25,7 @@ class HomePage extends GetView<HomePageController> {
           actions: [
             InkWell(
                 onTap: ()async{
-                  SharedPreferences prefs  =await SharedPreferences.getInstance();
-                  prefs.clear();
-                  Get.offAllNamed(Routes.loginScreen);
+                  Get.toNamed(Routes.cartScreen);
                 },
                 child: const Icon(Icons.power_settings_new_outlined)),
           ],
@@ -72,10 +70,9 @@ class HomePage extends GetView<HomePageController> {
             ],
           ),
         ),
-
         body: Column(
           children: [
-            TextField(
+            /*TextField(
               onChanged: (p0) {
                 controller.filterProductList(p0);
               },
@@ -106,119 +103,108 @@ class HomePage extends GetView<HomePageController> {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 prefixIcon: AppIcons.searchIcon
               ),
-            ).marginOnly(top: 10),
+            ).marginOnly(top: 10),*/
 
-         SizedBox(
+         Obx(()=>SizedBox(
               height: Get.height*0.8,
-              child:StreamBuilder<List<GetAllProductResponse>>(
-                stream: controller.productsStream,
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No products available.'));
-                  } else {
-                    List<GetAllProductResponse> productList = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: productList.length,
-                      itemBuilder: (context, index) {
-                        GetAllProductResponse product = productList[index];
-                        return GestureDetector(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            Get.toNamed(Routes.productDetailScreen, arguments: [{'id': product.id}]);
-                          },
-                          child: Card(
-                            margin: EdgeInsets.only(top:
-                            ResponsiveLayout.isSmallScreen(context)
-                                ? widthSize * 0.035
-                                : ResponsiveLayout.isMediumScreen(context)
-                                ? widthSize * 0.035
-                                : widthSize * 0.017
+              child:controller.isLoading.value==true
+                  ? Center(child: CircularProgressIndicator(),)
+                  :
+           ListView.builder(
+                itemCount: controller.getProductList.length,
+                itemBuilder: (context, index) {
+                  GetAllProductResponse product = controller.getProductList[index];
+                  return GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      Get.toNamed(Routes.productDetailScreen,arguments: product,);
+                    },
+                    child: Card(
+                      margin: EdgeInsets.only(top:
+                      ResponsiveLayout.isSmallScreen(context)
+                          ? widthSize * 0.035
+                          : ResponsiveLayout.isMediumScreen(context)
+                          ? widthSize * 0.035
+                          : widthSize * 0.017
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(
+                              product.image!,
+                              width: ResponsiveLayout.isSmallScreen(context)
+                                  ? widthSize * 0.17
+                                  : ResponsiveLayout.isMediumScreen(context)
+                                  ? widthSize * 0.15
+                                  : widthSize * 0.08,
+                              height: ResponsiveLayout.isSmallScreen(context)
+                                  ? widthSize * 0.17
+                                  : ResponsiveLayout.isMediumScreen(context)
+                                  ? widthSize * 0.15
+                                  : widthSize * 0.08,
+                              fit: BoxFit.cover,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
+                            const SizedBox(width: 16.0),
+                            Expanded(
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Image.network(
-                                    product.image!,
-                                    width: ResponsiveLayout.isSmallScreen(context)
-                                        ? widthSize * 0.17
-                                        : ResponsiveLayout.isMediumScreen(context)
-                                        ? widthSize * 0.15
-                                        : widthSize * 0.08,
-                                    height: ResponsiveLayout.isSmallScreen(context)
-                                        ? widthSize * 0.17
-                                        : ResponsiveLayout.isMediumScreen(context)
-                                        ? widthSize * 0.15
-                                        : widthSize * 0.08,
-                                    fit: BoxFit.cover,
+                                  Text(
+                                    product.title!,
+                                    style: TextStyle(
+                                      fontSize: ResponsiveLayout.isSmallScreen(context)
+                                          ? widthSize * 0.042
+                                          : ResponsiveLayout.isMediumScreen(context)
+                                          ? widthSize * 0.03
+                                          : widthSize * 0.02,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  const SizedBox(width: 16.0),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          product.title!,
-                                          style: TextStyle(
-                                            fontSize: ResponsiveLayout.isSmallScreen(context)
-                                                ? widthSize * 0.042
-                                                : ResponsiveLayout.isMediumScreen(context)
-                                                ? widthSize * 0.03
-                                                : widthSize * 0.02,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.02
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.02
-                                              : widthSize * 0.01,
-                                        ),
-                                        Text('\$${product.price}', style: TextStyle(
-                                          fontSize: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.038
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.027
-                                              : widthSize * 0.015,
-                                        )),
-                                        SizedBox(
-                                          height: ResponsiveLayout.isSmallScreen(context)
-                                              ? widthSize * 0.01
-                                              : ResponsiveLayout.isMediumScreen(context)
-                                              ? widthSize * 0.01
-                                              : widthSize * 0.001,
-                                        ),
-                                        Text(
-                                          'Rating: ${product.rating!.rate} (${product.rating!.count} reviews)',
-                                          style: TextStyle(
-                                            fontSize: ResponsiveLayout.isSmallScreen(context)
-                                                ? widthSize * 0.038
-                                                : ResponsiveLayout.isMediumScreen(context)
-                                                ? widthSize * 0.027
-                                                : widthSize * 0.015,
-                                          ),
-                                        ),
-                                      ],
+                                  SizedBox(
+                                    height: ResponsiveLayout.isSmallScreen(context)
+                                        ? widthSize * 0.02
+                                        : ResponsiveLayout.isMediumScreen(context)
+                                        ? widthSize * 0.02
+                                        : widthSize * 0.01,
+                                  ),
+                                  Text('\$${product.price}', style: TextStyle(
+                                    fontSize: ResponsiveLayout.isSmallScreen(context)
+                                        ? widthSize * 0.038
+                                        : ResponsiveLayout.isMediumScreen(context)
+                                        ? widthSize * 0.027
+                                        : widthSize * 0.015,
+                                  )),
+                                  SizedBox(
+                                    height: ResponsiveLayout.isSmallScreen(context)
+                                        ? widthSize * 0.01
+                                        : ResponsiveLayout.isMediumScreen(context)
+                                        ? widthSize * 0.01
+                                        : widthSize * 0.001,
+                                  ),
+                                  Text(
+                                    'Rating: ${product.rating!.rate} (${product.rating!.count} reviews)',
+                                    style: TextStyle(
+                                      fontSize: ResponsiveLayout.isSmallScreen(context)
+                                          ? widthSize * 0.038
+                                          : ResponsiveLayout.isMediumScreen(context)
+                                          ? widthSize * 0.027
+                                          : widthSize * 0.015,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 },
-              ),
-
+              )
+         )
          )
           ],
         ).paddingSymmetric(horizontal:  ResponsiveLayout.isSmallScreen(context)

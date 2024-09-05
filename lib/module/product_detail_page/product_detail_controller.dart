@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_mobril_test/data/home/home_repo.dart';
 import 'package:web_mobril_test/data/home/home_repo_impl.dart';
+import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
 import 'package:web_mobril_test/data/model/get_select_product_response.dart';
+import 'package:web_mobril_test/module/product_cart_page/product_cart_controller.dart';
 
 class ProductDetailController extends GetxController {
   late HomeRepo _homeRepo;
+
 
   ProductDetailController() {
     _homeRepo = Get.find<HomeRepoImpl>() as HomeRepo;
@@ -18,8 +21,9 @@ class ProductDetailController extends GetxController {
 
   var isInCart = false.obs;
   var isInWishList = false.obs;
+  RxInt totalPrice = 0.obs;
 
-  List<Map<String, dynamic>> cartItem = [];
+
   // Method to add product to cart
 
 
@@ -29,8 +33,8 @@ class ProductDetailController extends GetxController {
     isInWishList.value = true;
   }
 
-  Stream<GetSelectProductResponse>? productsStream;
-  StreamController<GetSelectProductResponse> _streamController = StreamController.broadcast();
+
+
 
 
   TextEditingController searchText = TextEditingController();
@@ -42,21 +46,18 @@ class ProductDetailController extends GetxController {
   RxString imageUrl=''.obs;
   RxString description=''.obs;
   RxString price=''.obs;
+
+  final GetAllProductResponse product = Get.arguments;
+
   @override
   void onInit() async{
     super.onInit();
-
-    dynamic args = Get.arguments;
-    final int id = await args[0]['id'];
-    productsStream = _streamController.stream;
-    getSelectProducts(id);
-
-
+    print("daskldjlak ${product.id}");
+    getSelectProducts(product.id!);
   }
 
   @override
   void dispose() {
-    _streamController.close();
     super.dispose();
   }
 
@@ -74,11 +75,9 @@ class ProductDetailController extends GetxController {
        price.value = response.price.toString();
 
       } else {
-        _streamController.sink.addError("No products available.");
       }
     } catch (e) {
 
-      _streamController.sink.addError("Failed to fetch products");
       Get.snackbar(
         "Failed",
         "Failed to fetch products",
@@ -96,4 +95,24 @@ class ProductDetailController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  void addToCart() {
+    ProductCartController productCartController = ProductCartController();
+    //product.quantity = (product.quantity!+1);
+    productCartController.cartProducts.add(product);
+    print("skldjaskl ${productCartController.cartProducts.length}");
+    calculateTotalPrice(productCartController);
+  }
+
+  void calculateTotalPrice(productCartController) {
+    totalPrice.value = 0;
+    for (var element in productCartController.cartProducts) {
+     /* if (isPriceOff(element)) {
+        totalPrice.value += element.quantity * element.off!;
+      } else {
+        totalPrice.value += element.quantity * element.price;
+      }*/
+    }
+  }
+
 }

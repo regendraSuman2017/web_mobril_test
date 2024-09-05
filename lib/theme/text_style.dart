@@ -1,4 +1,11 @@
-import '../utils/export.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/theme/app_font_size.dart';
+import 'package:web_mobril_test/theme/app_font_weight.dart';
+import 'package:web_mobril_test/theme/typography_constant.dart';
 
 class AppTextStyle {
   static TextStyle termConditionText = GoogleFonts.nunitoSans(

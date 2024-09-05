@@ -1,7 +1,11 @@
 
-import 'package:myTestApp/utils/globals.dart' as globals;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:web_mobril_test/core/globals.dart' as globals;
 
-import '../../utils/export.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/theme/text_style.dart';
+
 
 
 class CustomElevatedButton extends GetView {

@@ -13,8 +13,6 @@ class HomePageController extends GetxController {
     _homeRepo = Get.find<HomeRepoImpl>();
   }
 
-  Stream<List<GetAllProductResponse>>? productsStream;
-  StreamController<List<GetAllProductResponse>> _streamController = StreamController.broadcast();
 
   RxList<GetAllProductResponse> getProductList = <GetAllProductResponse>[].obs;
   RxList<GetAllProductResponse> getProductFilterList = <GetAllProductResponse>[].obs;
@@ -25,58 +23,20 @@ class HomePageController extends GetxController {
   RxBool isSwitched = false.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    productsStream = _streamController.stream;
     getAllProducts();
+
 
   }
 
   @override
   void dispose() {
-    _streamController.close();
+
     super.dispose();
   }
 
-/*  Future<void> getAllProducts() async {
-    isLoading.value = true;
-    try {
-      final response = await _homeRepo.getAllProductsAPI();
-      isLoading.value = false;
-      if (response != null) {
-        getProductList.assignAll(response);
-        getProductFilterList.assignAll(response);
-      } else {
-        getProductList.clear();
-        getProductFilterList.clear();
-        _streamController.sink.addError("No products available.");
-      }
-      _streamController.sink.add(getProductList.toList());
-      _streamController.sink.add(getProductFilterList.toList());
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error fetching products: $e');
-      }
-      getProductList.clear();
-      getProductFilterList.clear();
-      _streamController.sink.addError("Failed to fetch products");
-      Get.snackbar(
-        "Failed",
-        "Failed to fetch products",
-        icon: const Icon(Icons.clear, color: Colors.white),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0x00ffef53),
-        borderRadius: 20,
-        margin: const EdgeInsets.all(15),
-        colorText: Colors.white,
-        duration: const Duration(seconds: 3),
-        isDismissible: true,
-        forwardAnimationCurve: Curves.easeOutBack,
-      );
-    } finally {
-      isLoading.value = false;
-    }
-  }*/
+
 
   Future<void> getAllProducts() async {
     isLoading.value = true;
@@ -86,11 +46,9 @@ class HomePageController extends GetxController {
       if (response != null) {
         getProductList.assignAll(response);
         getProductFilterList.assignAll(response);
-        _streamController.sink.add(getProductFilterList.toList());
       } else {
         getProductList.clear();
         getProductFilterList.clear();
-        _streamController.sink.addError("No products available.");
       }
     } catch (e) {
       if (kDebugMode) {
@@ -98,7 +56,6 @@ class HomePageController extends GetxController {
       }
       getProductList.clear();
       getProductFilterList.clear();
-      _streamController.sink.addError("Failed to fetch products");
       Get.snackbar(
         "Failed",
         "Failed to fetch products",
@@ -117,16 +74,6 @@ class HomePageController extends GetxController {
     }
   }
 
-/*  void filterProductList(String query) {
-    print("askjhdkjsa ${query}");
-    if (query.isEmpty) {
-      getProductFilterList.assignAll(getProductList);
-    } else {
-      getProductFilterList.assignAll(
-        getProductList.where((product) => product.title!.toLowerCase().contains(query.toLowerCase())).toList(),
-      );
-    }
-  }*/
 void filterProductList(String query) {
   if (query.isEmpty) {
     getProductFilterList.assignAll(getProductList);
@@ -135,6 +82,7 @@ void filterProductList(String query) {
       getProductList.where((product) => product.title!.toLowerCase().contains(query.toLowerCase())).toList(),
     );
   }
-  _streamController.sink.add(getProductFilterList.toList());
 }
+
+
 }

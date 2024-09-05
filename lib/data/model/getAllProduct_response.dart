@@ -6,6 +6,7 @@ class GetAllProductResponse {
   String? category;
   String? image;
   Rating? rating;
+  int? quantity;
 
   GetAllProductResponse(
       {this.id,
@@ -14,7 +15,8 @@ class GetAllProductResponse {
         this.description,
         this.category,
         this.image,
-        this.rating});
+        this.rating,
+        this.quantity=1});
 
   GetAllProductResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
