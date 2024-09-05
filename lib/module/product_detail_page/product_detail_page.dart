@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_mobril_test/localdatabase/product_cart_list.dart';
 import 'package:web_mobril_test/module/product_cart_page/product_cart_controller.dart';
 import 'package:web_mobril_test/module/product_detail_page/product_detail_controller.dart';
 import 'package:web_mobril_test/responsive.dart';
@@ -108,8 +109,18 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      cartController.addToCart(controller.product);
+                    onPressed: () async{
+                      ProductCartListOffline saveProductOffline = ProductCartListOffline(
+                          productId: controller.product.id,
+                        category:  controller.product.category,
+                        title: controller.product.title,
+                        description: controller.product.description,
+                        image: controller.product.image,
+                        price: controller.product.price,
+                        quantity: 1
+                      );
+
+                      await saveProductOffline.save();
                       print('Item added to cart');
                     },
                     icon: Icon(Icons.shopping_cart),

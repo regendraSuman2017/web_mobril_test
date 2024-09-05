@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_mobril_test/module/product_cart_page/product_cart_controller.dart';
@@ -23,8 +22,12 @@ class CartScreen extends GetView<ProductCartController> {
     return Scaffold(
       appBar: _appBar(context),
       body: Obx(()=>SizedBox(
-        child: ListView.builder(
-            itemCount: controller.items.length,
+        height: 500,
+        child: controller.productList.length == 0
+            ? Center(
+          child: Text("Empty"),
+        ) : ListView.builder(
+            itemCount: controller.productList.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Container(
@@ -44,7 +47,7 @@ class CartScreen extends GetView<ProductCartController> {
                 child: Row(
                   children: [
                     Image.network(
-                      controller.items[index].image!,
+                      controller.productList[index].image!,
                       width: size.width / 4,
                       height: size.width / 4,
                     ),
@@ -55,7 +58,7 @@ class CartScreen extends GetView<ProductCartController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(controller.items[index].title.toString()),
+                          Text(controller.productList[index].title.toString()),
                           SizedBox(
                             height: 10,
                           ),
@@ -63,7 +66,7 @@ class CartScreen extends GetView<ProductCartController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                controller.items[index].price.toString() +
+                                controller.productList[index].price.toString() +
                                     " \$",
                                 style: TextStyle(
                                     fontSize: 12.0,
@@ -73,7 +76,7 @@ class CartScreen extends GetView<ProductCartController> {
                               FloatingActionButton(
                                 backgroundColor: Color(0xff465bd8),
                                 onPressed: () {
-                                  //controller.deleteItem(controller.items[index]);
+controller.deleteItem(controller.productList[index].productId!);
                                 },
                                 child: Icon(
                                   Icons.delete,

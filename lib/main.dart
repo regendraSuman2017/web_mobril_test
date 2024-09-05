@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:web_mobril_test/adapter/cart_hive_adapter.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Hive..initFlutter()..registerAdapter(CartAdapter())
-    ..registerAdapter(RatingAdapter());
+
   runApp(const MyApp());
 }
 

@@ -96,23 +96,6 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  void addToCart() {
-    ProductCartController productCartController = ProductCartController();
-    //product.quantity = (product.quantity!+1);
-    productCartController.cartProducts.add(product);
-    print("skldjaskl ${productCartController.cartProducts.length}");
-    calculateTotalPrice(productCartController);
-  }
 
-  void calculateTotalPrice(productCartController) {
-    totalPrice.value = 0;
-    for (var element in productCartController.cartProducts) {
-     /* if (isPriceOff(element)) {
-        totalPrice.value += element.quantity * element.off!;
-      } else {
-        totalPrice.value += element.quantity * element.price;
-      }*/
-    }
-  }
 
 }
