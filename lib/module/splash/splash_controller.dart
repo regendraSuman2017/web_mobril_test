@@ -7,8 +7,6 @@ import 'package:web_mobril_test/routes/app_pages.dart';
 
 class SplashController extends GetxController {
 
-  RxString qrResponse = '0'.obs;
-
 
   @override
   Future<void> onReady() async {
@@ -17,7 +15,7 @@ class SplashController extends GetxController {
 
     Timer(const Duration(seconds: 2), () async{
       (checkLogin==true)
-          ? Get.offAllNamed(Routes.homeScreen)
+          ? Get.offAllNamed(Routes.dashBoardScreen)
           : Get.offAllNamed(Routes.loginScreen);
     });
     super.onReady();

@@ -26,7 +26,7 @@ class _AppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'web mobril',
       getPages: AppPages.routes,
-      initialRoute: Routes.dashBoardScreen,
+      initialRoute: AppPages.initial,
       theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
           useMaterial3: false),

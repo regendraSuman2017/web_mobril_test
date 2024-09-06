@@ -17,17 +17,36 @@ getProduct() async {
  isLoading.value=true;
     ProductCartListOffline getProducts = ProductCartListOffline.empty();
      productList.value = await getProducts.getProduct();
- isLoading.value=false;
+     print("asdjkl ${productList.length}");
+     isLoading.value=false;
+
+ // Sum the price of all products in the list, converting String to double safely
+ double totalPrice = productList.fold(0.0, (sum, product) {
+   // Try to parse the price if it's a string, fallback to 0.0 if it fails
+   double price = 0.0;
+   if (product.price is String) {
+     price = double.tryParse(product.price) ?? 0.0;  // Parse String to double
+   } else if (product.price is num) {
+     price = product.price.toDouble();  // If it's already a number, just convert to double
+   }
+
+   return sum + price;
+ });
+
+ print("Total price: $totalPrice");
+ totalPriceNew.value = totalPrice;
+
   }
 
   deleteItem(int id) async {
-    ProductCartListOffline deleteP = ProductCartListOffline.empty();
+    ProductCartListOffline deleteP = ProductCartListOffline();
      await deleteP.delete(id);
+    getProduct();
   }
 
   var isInCart = false.obs;
   var isInWishList = false.obs;
-  RxInt totalPrice = 0.obs;
+  RxDouble totalPriceNew = 0.0.obs;
 
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_mobril_test/module/login_screen/login_screen_controller.dart';
 import 'package:web_mobril_test/theme/app_colors.dart';
 import 'package:web_mobril_test/theme/text_style.dart';
 import 'package:web_mobril_test/utils/assets_image.dart';
@@ -9,7 +10,11 @@ class LoginWidthGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
+      return buildButton(Get.find<LoginScreenController>());
+  }
+  buildButton(loginController){
+    return InkWell(
+      child: Container(
         height: 50,
         margin: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
@@ -29,6 +34,10 @@ class LoginWidthGoogle extends StatelessWidget {
               style: AppTextStyle.outlineButtonText,),
           ],
         ),
-      );
+      ),
+      onTap: (){
+        loginController.signInWithGoogle();
+      },
+    );
   }
 }

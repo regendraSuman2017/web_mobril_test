@@ -61,7 +61,7 @@ class LoginScreenController extends GetxController{
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('isLogin', true);
       await Future.delayed(const Duration(seconds: 1));
-      Get.offAllNamed(Routes.homeScreen);
+      Get.offAllNamed(Routes.dashBoardScreen);
 
     } catch (e) {
       Navigator.of(Get.context!).pop();
@@ -71,7 +71,7 @@ class LoginScreenController extends GetxController{
   }
 
   Future<UserCredential?> signInWithGoogle() async {
- /*   showDialog(
+    showDialog(
         context: Get.context!,
         builder: (BuildContext _) => Center(
           child: LoadingAnimationWidget.threeArchedCircle(
@@ -79,7 +79,7 @@ class LoginScreenController extends GetxController{
             size: Get.width*0.12,
           ),
         )
-    );*/
+    );
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
@@ -99,7 +99,7 @@ class LoginScreenController extends GetxController{
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLogin', true);
           await Future.delayed(const Duration(seconds: 1));
-          Get.offAllNamed(Routes.homeScreen);
+          Get.offAllNamed(Routes.dashBoardScreen);
 
         await googleSignIn.disconnect();
 

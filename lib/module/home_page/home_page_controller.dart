@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:web_mobril_test/data/home/home_repo.dart';
-import 'package:web_mobril_test/data/home/home_repo_impl.dart';
 import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
+import 'package:web_mobril_test/service/api_service.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
 
 class HomePageController extends GetxController {
-  late HomeRepo _homeRepo;
 
   HomePageController() {
-    _homeRepo = Get.find<HomeRepoImpl>();
   }
 
   RxList<Products> getAllProductList = <Products>[].obs;
@@ -40,7 +38,7 @@ class HomePageController extends GetxController {
   Future<void> getAllProducts() async {
     isLoading.value = true;
     try {
-      final response = await _homeRepo.getAllProductsAPI();
+      final response = await ApiService().getAllProductsRequest();
       isLoading.value = false;
       if (response != null) {
         getAllProductList.value = response.products!;
@@ -53,17 +51,11 @@ class HomePageController extends GetxController {
             .toSet() // Remove duplicate categories
             .toList(); // Convert the Set back to a List
         categoriesList.insert(0, "All");
-        print("dsfkjskl ${categoriesList}");
-        print("dsfkjskl ${categoriesList.length}");
-      } else {
-        getProductFilterList.clear();
+        print("dsfkjskl ${getAllProductList}");
+        print("dsfkjskl ${getAllProductList.length}");
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error fetching products: $e');
-      }
-
-      getProductFilterList.clear();
+      isLoading.value = false;
       Get.snackbar(
         "Failed",
         "Failed to fetch products",
@@ -91,26 +83,49 @@ void filterProductList(String query) {
     );
   }
 }
-
   void filterItemsByCategory(String index) {
-    if(index=='All'){
-      getProductFilterList.clear();
-      isLoading.value=true;
-      print("dsljk ${getAllProductList}");
-      getProductFilterList.addAll(getAllProductList);
-      print("dsdkj ${getProductFilterList}");
-      update();
-    }else{
-      print("dslkfjslk ${getAllProductList}");
-      getProductFilterList.clear();
-      isLoading.value=true;
-      for (var product in getAllProductList) {
-        if (product.category == index) {
-          getProductFilterList.add(product);
-        }
-      }
-      update();
+    isLoading.value = true;  // Set loading to true
+
+    // Clear the filter list only if you are applying a new filter
+    if (index == 'All') {
+      getAllProducts();
+    } else {
+     getCategoryWise(index);
     }
-    isLoading.value=false;
+
+    isLoading.value = false;  // Set loading to false
+    update();  // Trigger UI update
   }
+
+  void getCategoryWise(String query)async {
+    isLoading.value = true;
+    try {
+      final response = await ApiService().getCategoryWiseRequest(query);
+      isLoading.value = false;
+      print("sakljkl ${response}");
+      if (response != null) {
+        getAllProductList.value = response.products!;
+        getProductFilterList.value = response.products!;
+      }
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar(
+        "Failed",
+        "Failed to fetch products",
+        icon: const Icon(Icons.clear, color: Colors.white),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: primaryColor,
+        borderRadius: 20,
+        margin: const EdgeInsets.all(15),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+        isDismissible: true,
+        forwardAnimationCurve: Curves.easeOutBack,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+
 }

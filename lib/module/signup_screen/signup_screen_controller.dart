@@ -57,28 +57,7 @@ class SignUpScreenController extends GetxController{
     Fluttertoast.showToast(msg: e!.message);
     });
 
-      /* await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      Navigator.of(Get.context!).pop();
-      Get.snackbar(
-        "Success",
-        "Signup Successful!",
-        icon: const Icon(Icons.clear, color: Colors.white),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        borderRadius: 20,
-        margin: const EdgeInsets.all(15),
-        colorText: Colors.white,
-        duration: const Duration(seconds: 3),
-        isDismissible: true,
-        forwardAnimationCurve: Curves.easeOutBack,
 
-      );
-      Future.delayed(const Duration(seconds: 1));
-      Get.offAllNamed(Routes.loginScreen);
-*/
 
     } catch (e) {
       Navigator.of(Get.context!).pop();
@@ -120,22 +99,10 @@ class SignUpScreenController extends GetxController{
     emailController.clear();
     passwordController.clear();
 
-   /* return FirebaseAuthService().user.add({
-      'name': nameController.text,
-      'emailId': emailController.text,
-      'password': passwordController.text}).then((value)
-        {Fluttertoast.showToast(msg: "Account Created Successfully :)");})
-        .catchError((error) => print('Failed to Add user: $error'));
-*/
-
-  /*  Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => Home()), (route) => false);
-  */
   }
 
 
   Future<UserCredential?> signUpWithGoogle() async {
-
     showDialog(
         context: Get.context!,
         builder: (BuildContext _) => Center(
