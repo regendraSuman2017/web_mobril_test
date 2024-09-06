@@ -35,9 +35,9 @@ A new Flutter project.
 <br>
 <h4>2. All Page in Mobile View</h4>
 <p float="left" style="margin-top:120px">
-  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/1..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/2..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/3..jpg' style="width: 20%; height: 20%; margin-bottom: 
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/1..jpg' style="width: 25%; height: 25%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/2..jpg' style="width: 25%; height: 25%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/3..jpg' style="width: 25%; height: 25%; margin-bottom: 
     10px;"/>
 </p>
 <p float='left'>
