@@ -46,9 +46,9 @@ class Dashboard extends GetView<DashboardController> {
 List<Widget> _buildScreens() {
   return [
      const HomePage(),
-    const HomePage(),
-    const HomePage(),
-    const HomePage(),
+    const Center(child: const Text("None Page")),
+    const Center(child: const Text("Setting Page")),
+    const Center(child: const Text("Profile Page")),
   ];
 }
 
@@ -67,8 +67,8 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       inactiveColorPrimary: primaryColor,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.shopping_basket ,size: 20),
-      title: "cart",
+      icon: const Icon(Icons.settings ,size: 20),
+      title: "setting",
       activeColorPrimary: secondaryColor,
       inactiveColorPrimary: primaryColor,
     ),

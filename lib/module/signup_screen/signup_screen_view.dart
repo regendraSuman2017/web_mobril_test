@@ -1,27 +1,131 @@
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:web_mobril_test/module/signup_screen/signup_screen_controller.dart';
-import 'package:web_mobril_test/responsive.dart';
-import 'package:web_mobril_test/routes/app_pages.dart';
-import 'package:web_mobril_test/utils/validator.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:web_mobril_test/CustomAppbar.dart';
-import 'package:web_mobril_test/core/icons.dart';
 import 'package:web_mobril_test/core/widgets/custom_elevated_button.dart';
 import 'package:web_mobril_test/core/widgets/text_Form_Field_Component.dart';
-import 'package:web_mobril_test/module/login_screen/login_screen_controller.dart';
 import 'package:web_mobril_test/module/login_screen/widgets/login_width_google.dart';
-import 'package:web_mobril_test/responsive.dart';
+import 'package:web_mobril_test/module/signup_screen/signup_screen_controller.dart';
+import 'package:web_mobril_test/routes/app_pages.dart';
+import 'package:web_mobril_test/theme/app_colors.dart';
+import 'package:web_mobril_test/utils/assets_image.dart';
+import 'package:web_mobril_test/utils/validator.dart';
+
+class SignUpScreenView extends GetView<SignUpScreenController> {
+  const SignUpScreenView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.focusScope!.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: const CustomWhiteAppBar(
+          elevation: 0,
+          title: "Let's Signup",
+          spacing: 5.0,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Form(
+                  key: controller.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(child: Image.asset(AssetsImage.loginScreeImg, width: Get.height * 0.25)),
+                      _buildTextField('Enter user name', controller.nameController, Validator().validateName),
+                      _buildTextField('Enter Email', controller.emailController, Validator().validateEmail),
+                      _buildTextField('Enter Password', controller.passwordController, Validator().validatePassword),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomElevatedButton(
+                              title: 'Signup',
+                              onPress: () {
+                                if (controller.formKey.currentState?.validate() ?? false) {
+                                  controller.registerUser();
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      _buildDividerWithText('or continue with'),
+                      const LoginWidthGoogle(),
+                      _buildLoginLink(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(String hintText, TextEditingController controller, String? Function(String?)? validator) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: TextFieldComponent(
+        hintText: hintText,
+        controller: controller,
+        validator: validator,
+        contentPadding: EdgeInsets.all(Get.width * 0.023),
+        inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
+      ),
+    );
+  }
+
+  Widget _buildDividerWithText(String text) {
+    return Row(
+      children: [
+        const Expanded(child: Divider(color: Colors.grey)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(text, style: TextStyle(fontSize: Get.width * 0.038, color: Colors.grey)),
+        ),
+        const Expanded(child: Divider(color: Colors.grey)),
+      ],
+    );
+  }
+
+  Widget _buildLoginLink() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Already have an account? ', style: TextStyle(color: Colors.black54)),
+          GestureDetector(
+            onTap: () => Get.toNamed(Routes.loginScreen),
+            child: const Text('Login', style: TextStyle(color: primaryColor)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/*
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:web_mobril_test/CustomAppbar.dart';
+import 'package:web_mobril_test/core/globals.dart';
+import 'package:web_mobril_test/core/widgets/custom_elevated_button.dart';
+import 'package:web_mobril_test/core/widgets/text_Form_Field_Component.dart';
+import 'package:web_mobril_test/module/login_screen/widgets/login_width_google.dart';
+import 'package:web_mobril_test/module/signup_screen/signup_screen_controller.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
 import 'package:web_mobril_test/theme/app_colors.dart';
 import 'package:web_mobril_test/theme/app_font_weight.dart';
 import 'package:web_mobril_test/theme/text_style.dart';
-import 'package:web_mobril_test/theme/typography_constant.dart';
 import 'package:web_mobril_test/utils/assets_image.dart';
 import 'package:web_mobril_test/utils/validator.dart';
 
@@ -170,7 +274,8 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
         ),
       ),
     );
-    /*return Scaffold(
+    */
+/*return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -357,6 +462,7 @@ class SignUpScreenView extends GetView<SignUpScreenController>{
 
         ),
       ),
-    );*/
+    );*//*
+
   }
-}
+}*/
