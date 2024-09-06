@@ -111,9 +111,10 @@ class HomePage extends GetView<HomePageController> {
               ),
             ).marginOnly(top: 10,bottom: 10),
 
-            SizedBox(
+            Obx(()=>SizedBox(
               height: 35,
-              child: ListView.builder(
+              child:  controller.isLoading.value==true? const Center(child: CircularProgressIndicator(),)
+                  : ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.categoriesList.length,
                 itemBuilder: (_, index) {
@@ -141,6 +142,7 @@ class HomePage extends GetView<HomePageController> {
                 },
               ),
             ),
+    ),
 
 
         Obx(()=> SizedBox(

@@ -56,7 +56,6 @@ class HomePageController extends GetxController {
         print("dsfkjskl ${categoriesList}");
         print("dsfkjskl ${categoriesList.length}");
       } else {
-
         getProductFilterList.clear();
       }
     } catch (e) {
@@ -95,9 +94,9 @@ void filterProductList(String query) {
 
   void filterItemsByCategory(String index) {
     if(index=='All'){
-      print("dsdkj ${getAllProductList}");
       getProductFilterList.clear();
       isLoading.value=true;
+      print("dsljk ${getAllProductList}");
       getProductFilterList.addAll(getAllProductList);
       print("dsdkj ${getProductFilterList}");
       update();
