@@ -41,17 +41,14 @@ A new Flutter project.
     10px;"/>
 </p>
 <p float='left'>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/productList_with_search.jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/product_detail_page.jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/4..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/5..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
 </p>
 
 
 <p float='left'>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/tab_product_detail.png' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/tab_dark_theme.png' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/tab_light_theme.png' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
-  
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/7..jpg' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/8..jpg' style="width: 20%; height: 20%; margin-bottom: 20px;"/>  
 </p>
 
 
