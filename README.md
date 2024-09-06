@@ -28,6 +28,7 @@ A new Flutter project.
 4. you can Search any product in searcbox.<br/>
 5. get category wise product when you will click category.<br/>
 6. when will you click on any product, then move product detail page and show Detail of select product and click on Add to cart Button to Add produc in cart List<br/>
+7. you can delete item click delete icon in cart list.
 8. in the home page App Bar show Cart icon when you click on this icon move to cart List page ans show all Added product.<br/>
 8. in the home page in App Bar Drawe show Logout when you click on this for LOGOUT then move to Login Page.<br/>
 
