@@ -118,7 +118,6 @@ class ProductDetailPage extends GetView<ProductDetailController> {
               quantity: 1,
             );
             await product.save();
-            print('Item added to cart');
           },
         ),
         _buildButton(

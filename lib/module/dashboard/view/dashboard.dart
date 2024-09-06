@@ -1,4 +1,3 @@
-import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -46,9 +45,9 @@ class Dashboard extends GetView<DashboardController> {
 List<Widget> _buildScreens() {
   return [
      const HomePage(),
-    const Center(child: const Text("None Page")),
-    const Center(child: const Text("Setting Page")),
-    const Center(child: const Text("Profile Page")),
+    const Center(child: Text("None Page")),
+    const Center(child: Text("Setting Page")),
+    const Center(child: Text("Profile Page")),
   ];
 }
 

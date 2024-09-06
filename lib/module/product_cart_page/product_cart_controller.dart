@@ -17,7 +17,6 @@ getProduct() async {
  isLoading.value=true;
     ProductCartListOffline getProducts = ProductCartListOffline.empty();
      productList.value = await getProducts.getProduct();
-     print("asdjkl ${productList.length}");
      isLoading.value=false;
 
  // Sum the price of all products in the list, converting String to double safely
@@ -33,7 +32,6 @@ getProduct() async {
    return sum + price;
  });
 
- print("Total price: $totalPrice");
  totalPriceNew.value = totalPrice;
 
   }

@@ -11,17 +11,17 @@ class GetAllProductResponse {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -71,19 +71,19 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['price'] = this.price;
-    data['description'] = this.description;
-    data['brand'] = this.brand;
-    data['model'] = this.model;
-    data['color'] = this.color;
-    data['category'] = this.category;
-    data['discount'] = this.discount;
-    data['popular'] = this.popular;
-    data['onSale'] = this.onSale;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['price'] = price;
+    data['description'] = description;
+    data['brand'] = brand;
+    data['model'] = model;
+    data['color'] = color;
+    data['category'] = category;
+    data['discount'] = discount;
+    data['popular'] = popular;
+    data['onSale'] = onSale;
     return data;
   }
 }

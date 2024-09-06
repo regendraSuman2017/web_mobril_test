@@ -9,15 +9,15 @@ class GetSelectProductResponse {
     status = json['status'];
     message = json['message'];
     product =
-    json['product'] != null ? new Product.fromJson(json['product']) : null;
+    json['product'] != null ? Product.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.product != null) {
-      data['product'] = this.product!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (product != null) {
+      data['product'] = product!.toJson();
     }
     return data;
   }
@@ -64,18 +64,18 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['price'] = this.price;
-    data['description'] = this.description;
-    data['brand'] = this.brand;
-    data['model'] = this.model;
-    data['color'] = this.color;
-    data['category'] = this.category;
-    data['popular'] = this.popular;
-    data['discount'] = this.discount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['price'] = price;
+    data['description'] = description;
+    data['brand'] = brand;
+    data['model'] = model;
+    data['color'] = color;
+    data['category'] = category;
+    data['popular'] = popular;
+    data['discount'] = discount;
     return data;
   }
 }

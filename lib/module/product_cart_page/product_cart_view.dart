@@ -25,7 +25,7 @@ class CartScreen extends GetView<ProductCartController> {
       appBar: _appBar(context),
       body: Obx(()=>SizedBox(
         height: 500,
-        child: controller.productList.length == 0
+        child: controller.productList.isEmpty
             ? const Center(
           child: Text("Empty"),
         ) : ListView.builder(
@@ -90,7 +90,7 @@ class CartScreen extends GetView<ProductCartController> {
                                   onPressed: (){
                                     controller.deleteItem(int.parse(controller.productList[index].productId!));
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.delete,
                                   ),
                                    color: Colors.red,
@@ -116,7 +116,7 @@ class CartScreen extends GetView<ProductCartController> {
             fontWeight: FontWeight.w700,
             fontSize: Get.width*0.05,
           ),),
-          Text("\$"+controller.totalPriceNew.value.toString(),style: GoogleFonts.nunitoSans(
+          Text("\$${controller.totalPriceNew.value}",style: GoogleFonts.nunitoSans(
             fontWeight: FontWeight.w700,
             fontSize: Get.width*0.05,
           )),

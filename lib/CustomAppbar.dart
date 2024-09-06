@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:web_mobril_test/theme/app_colors.dart';
 import 'package:web_mobril_test/theme/text_style.dart';
@@ -24,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Material(
       elevation: elevation,
       child: Container(
-        decoration:  BoxDecoration(
+        decoration:  const BoxDecoration(
           gradient: appBarColor,
         ),
         child: AppBar(

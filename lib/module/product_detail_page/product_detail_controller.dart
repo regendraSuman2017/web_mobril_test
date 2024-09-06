@@ -8,8 +8,6 @@ import 'package:web_mobril_test/data/model/getAllProduct_response.dart';
 import 'package:web_mobril_test/service/api_service.dart';
 
 class ProductDetailController extends GetxController {
-  ProductDetailController() {
-  }
 
 
   var isInCart = false.obs;
@@ -36,16 +34,11 @@ class ProductDetailController extends GetxController {
   @override
   void onInit() async{
     super.onInit();
-    print("fsfs ${product.id!}");
     final int id =  product.id!;
     getSelectProducts(id);
 
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   Future<void> getSelectProducts(int id) async {
     isLoading.value = true;
@@ -65,7 +58,7 @@ class ProductDetailController extends GetxController {
         "Failed to fetch products",
         icon: const Icon(Icons.clear, color: Colors.white),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0x00ffef53),
+        backgroundColor: const Color(0x00ffef53),
         borderRadius: 20,
         margin: const EdgeInsets.all(15),
         colorText: Colors.white,
