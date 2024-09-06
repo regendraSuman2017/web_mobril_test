@@ -41,7 +41,7 @@ class ProductGridView extends StatelessWidget {
     );
   }
 
-  Widget _gridItemBody(GetAllProductResponse product) {
+  Widget _gridItemBody(Products product) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -52,7 +52,7 @@ class ProductGridView extends StatelessWidget {
     );
   }
 
-  Widget _gridItemFooter(GetAllProductResponse product, BuildContext context) {
+  Widget _gridItemFooter(Products product, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

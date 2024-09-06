@@ -30,6 +30,7 @@ class HttpServiceImpl implements HttpService {
   Future<Response> getSelectProductsRequest(int id) async {
     Response response;
     try {
+      print("dsljlk ${UrlConstant.baseUrl+UrlConstant.getAllProducts+'/$id'}");
       response = await _dio.get('${UrlConstant.getAllProducts}/$id');
 
     } on DioException catch (e) {

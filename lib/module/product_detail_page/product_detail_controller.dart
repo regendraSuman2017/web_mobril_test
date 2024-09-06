@@ -20,10 +20,9 @@ class ProductDetailController extends GetxController {
   var isInCart = false.obs;
   var isInWishList = false.obs;
 
-  List<Map<String, dynamic>> cartItem = [];
-  // Method to add product to cart
-  final GetAllProductResponse product = Get.arguments;
 
+  // Method to add product to cart
+  final Products product = Get.arguments;
 
 
   void addToWishList() {
@@ -42,11 +41,9 @@ class ProductDetailController extends GetxController {
   @override
   void onInit() async{
     super.onInit();
-
-    dynamic args = Get.arguments;
-    final int id = await args[0]['id'];
+    print("fsfs ${product.id!}");
+    final int id =  product.id!;
     getSelectProducts(id);
-
 
   }
 
@@ -60,14 +57,10 @@ class ProductDetailController extends GetxController {
     try {
       final response = await _homeRepo.getSelectProductsAPI(id);
       if (response != null) {
-
-
-
-       title.value = response.title!;
-       imageUrl.value = response.image!;
-       description.value = response.description!;
-       price.value = response.price.toString();
-
+       title.value = response.product!.title!;
+       imageUrl.value = response.product!.image!;
+       description.value = response.product!.description!;
+       price.value = response.product!.price.toString();
       } else {
       }
     } catch (e) {

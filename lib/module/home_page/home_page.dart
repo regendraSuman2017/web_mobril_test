@@ -149,11 +149,11 @@ class HomePage extends GetView<HomePageController> {
                   : ListView.builder(
            itemCount: controller.getProductFilterList.length,
            itemBuilder: (context, index) {
-             GetAllProductResponse product = controller.getProductFilterList[index];
+             Products product = controller.getProductFilterList[index];
              return GestureDetector(
                onTap: () {
                  FocusScope.of(context).unfocus();
-                 Get.toNamed(Routes.productDetailScreen, arguments: [{'id': product.id}]);
+                 Get.toNamed(Routes.productDetailScreen, arguments:product);
                },
                child: Card(
                  margin: EdgeInsets.only(top:
@@ -220,16 +220,7 @@ class HomePage extends GetView<HomePageController> {
                                    ? widthSize * 0.01
                                    : widthSize * 0.001,
                              ),
-                             Text(
-                               'Rating: ${product.rating!.rate} (${product.rating!.count} reviews)',
-                               style: TextStyle(
-                                 fontSize: ResponsiveLayout.isSmallScreen(context)
-                                     ? widthSize * 0.038
-                                     : ResponsiveLayout.isMediumScreen(context)
-                                     ? widthSize * 0.027
-                                     : widthSize * 0.015,
-                               ),
-                             ),
+
                            ],
                          ),
                        ),

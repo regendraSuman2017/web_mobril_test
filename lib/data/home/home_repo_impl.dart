@@ -16,17 +16,18 @@ late  HttpService _httpService;
   }
 
 @override
-  Future<List<GetAllProductResponse>?> getAllProductsAPI() async {
+  Future<GetAllProductResponse?> getAllProductsAPI() async {
   try {
     final response = await _httpService.getAllProductsRequest();
-    return getAllProductResponseFromJson(jsonEncode(response.data));
+    Map<String, dynamic> responseMap = Map.from(jsonDecode(response.toString()));
+    return GetAllProductResponse.fromJson(responseMap);
   } on Exception catch (e) {
-    debugPrint(e.toString());
+    if (kDebugMode) {
+      print(e);
+    }
     return null;
   }
 }
-List<GetAllProductResponse> getAllProductResponseFromJson(String str) => List<GetAllProductResponse>.from(json.decode(str).map((x) => GetAllProductResponse.fromJson(x)));
-
 
 
 @override

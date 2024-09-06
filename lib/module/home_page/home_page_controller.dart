@@ -13,8 +13,8 @@ class HomePageController extends GetxController {
     _homeRepo = Get.find<HomeRepoImpl>();
   }
 
-  RxList<GetAllProductResponse> getProductList = <GetAllProductResponse>[].obs;
-  RxList<GetAllProductResponse> getProductFilterList = <GetAllProductResponse>[].obs;
+  RxList<Products> getAllProductList = <Products>[].obs;
+  RxList<Products> getProductFilterList = <Products>[].obs;
 
   TextEditingController searchText = TextEditingController();
 
@@ -42,15 +42,13 @@ class HomePageController extends GetxController {
     try {
       final response = await _homeRepo.getAllProductsAPI();
       isLoading.value = false;
-      print("lsakjdkla ${response}");
       if (response != null) {
-        getProductList.value = response;
-        getProductFilterList.value = response;
+        getAllProductList.value = response.products!;
+        getProductFilterList.value = response.products!;
 
         // Extract unique categories from the response
 
-        categoriesList = response
-            .map((product) => product.category)  // Extract the category from each product
+        categoriesList = getAllProductList.map((product) => product.category)  // Extract the category from each product
             .where((category) => category != null) // Remove null categories
             .toSet() // Remove duplicate categories
             .toList(); // Convert the Set back to a List
@@ -58,14 +56,14 @@ class HomePageController extends GetxController {
         print("dsfkjskl ${categoriesList}");
         print("dsfkjskl ${categoriesList.length}");
       } else {
-        getProductList.clear();
+
         getProductFilterList.clear();
       }
     } catch (e) {
       if (kDebugMode) {
         print('Error fetching products: $e');
       }
-      getProductList.clear();
+
       getProductFilterList.clear();
       Get.snackbar(
         "Failed",
@@ -88,29 +86,30 @@ class HomePageController extends GetxController {
 
 void filterProductList(String query) {
   if (query.isEmpty) {
-    getProductFilterList.assignAll(getProductList);
+    getProductFilterList.assignAll(getAllProductList);
   } else {
-    getProductFilterList.assignAll(getProductList.where((product) => product.title!.toLowerCase().contains(query.toLowerCase())).toList(),
+    getProductFilterList.assignAll(getAllProductList.where((product) => product.title!.toLowerCase().contains(query.toLowerCase())).toList(),
     );
   }
 }
 
   void filterItemsByCategory(String index) {
     if(index=='All'){
+      print("dsdkj ${getAllProductList}");
       getProductFilterList.clear();
       isLoading.value=true;
-          getProductFilterList.assignAll(getProductList);
-
+      getProductFilterList.addAll(getAllProductList);
+      print("dsdkj ${getProductFilterList}");
       update();
     }else{
+      print("dslkfjslk ${getAllProductList}");
       getProductFilterList.clear();
       isLoading.value=true;
-      for (var product in getProductList) {
+      for (var product in getAllProductList) {
         if (product.category == index) {
           getProductFilterList.add(product);
         }
       }
-
       update();
     }
     isLoading.value=false;
