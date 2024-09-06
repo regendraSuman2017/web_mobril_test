@@ -8,7 +8,7 @@ A new Flutter project.
 <br>
 
 <p><h4>2. Click to link for download APK in Mobile</h4>
-<a href="https://drive.google.com/file/d/1ouyXpMu0AoRL2oZTjGhltycaNLUsJjwr/view?usp=sharing">Click here</a>
+<a href="https://drive.google.com/file/d/14gt69_PrLVeU1qEMD1COxgtbPqr6bmRX/view?usp=sharing">Click here</a>
 </p>
 <br>
 
@@ -36,8 +36,8 @@ A new Flutter project.
 <h4>2. All Page in Mobile View</h4>
 <p float="left" style="margin-top:120px">
   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/1..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/2..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/3..jpg' style="width: 20%; height: 20%; margin-bottom: 
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/2..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/3..jpg' style="width: 20%; height: 20%; margin-bottom: 
     10px;"/>
 </p>
 <p float='left'>
