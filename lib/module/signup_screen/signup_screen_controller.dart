@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:web_mobril_test/routes/app_pages.dart';
-import 'package:web_mobril_test/service/firebase_auth_services.dart';
 
 
 class SignUpScreenController extends GetxController{
@@ -86,7 +85,6 @@ class SignUpScreenController extends GetxController{
       'emailId': emailController.text,
       'password': passwordController.text,
     });
-   print("aldsalk ${docRef}");
     Get.back();
 
     if(docRef!=null){
@@ -127,8 +125,6 @@ class SignUpScreenController extends GetxController{
         );
 
         final UserCredential userCredential = await _auth.signInWithCredential(credential);
-        print("laskjdlka ${userCredential}");
-        print("laskjdlka ${userCredential.additionalUserInfo!.isNewUser}");
         Navigator.of(Get.context!).pop();
         if(userCredential.additionalUserInfo!.isNewUser==true){
            Get.snackbar(

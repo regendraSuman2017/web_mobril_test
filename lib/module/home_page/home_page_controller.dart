@@ -40,7 +40,7 @@ class HomePageController extends GetxController {
     try {
       final response = await ApiService().getAllProductsRequest();
       isLoading.value = false;
-      if (response != null) {
+      if (response!= null) {
         getAllProductList.value = response.products!;
         getProductFilterList.value = response.products!;
 
@@ -51,8 +51,6 @@ class HomePageController extends GetxController {
             .toSet() // Remove duplicate categories
             .toList(); // Convert the Set back to a List
         categoriesList.insert(0, "All");
-        print("dsfkjskl ${getAllProductList}");
-        print("dsfkjskl ${getAllProductList.length}");
       }
     } catch (e) {
       isLoading.value = false;
@@ -61,7 +59,7 @@ class HomePageController extends GetxController {
         "Failed to fetch products",
         icon: const Icon(Icons.clear, color: Colors.white),
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color(0x00ffef53),
+        backgroundColor: const Color(0x00ffef53),
         borderRadius: 20,
         margin: const EdgeInsets.all(15),
         colorText: Colors.white,
@@ -102,7 +100,6 @@ void filterProductList(String query) {
     try {
       final response = await ApiService().getCategoryWiseRequest(query);
       isLoading.value = false;
-      print("sakljkl ${response}");
       if (response != null) {
         getAllProductList.value = response.products!;
         getProductFilterList.value = response.products!;

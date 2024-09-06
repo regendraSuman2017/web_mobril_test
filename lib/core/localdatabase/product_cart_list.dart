@@ -84,12 +84,10 @@ class ProductCartListOffline {
   }
 
   Future<int> delete(int id) async {
-    print("askjdlksa ${id}");
     DbHelper dbHelper = DbHelper();
     var dbClient = await dbHelper.db;
     int ids = await dbClient!.delete('ProductCartListOffline', where: 'productId=?', whereArgs: [id]);
 
-    print("dlsadjlk ${ids}");
     return ids;
   }
 
