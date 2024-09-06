@@ -35,9 +35,9 @@ A new Flutter project.
 <br>
 <h4>2. All Page in Mobile View</h4>
 <p float="left" style="margin-top:120px">
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/login_page.jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/sign_up_page.jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/product_list_page.jpg' style="width: 20%; height: 20%; margin-bottom: 
+  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/1..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/2..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
+  <img src='https://github.com/regendraSuman2017/ellemora_test/blob/main/assets/screen_shots/3..jpg' style="width: 20%; height: 20%; margin-bottom: 
     10px;"/>
 </p>
 <p float='left'>
