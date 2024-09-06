@@ -39,15 +39,12 @@ A new Flutter project.
   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/2..jpg' style="width: 25%; height: 25%; margin-bottom: 10px;"/>
   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/3..jpg' style="width: 25%; height: 25%; margin-bottom: 
     10px;"/>
+   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/4..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
 </p>
 <p float='left'>
-  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/4..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
+  
   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/5..jpg' style="width: 20%; height: 20%; margin-bottom: 10px;"/>
-</p>
-
-
-<p float='left'>
-  <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/7..jpg' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
+<img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/7..jpg' style="width: 20%; height: 20%; margin-bottom: 20px;"/>
   <img src='https://github.com/regendraSuman2017/web_mobril_test/blob/main/assets/screen_shot/8..jpg' style="width: 20%; height: 20%; margin-bottom: 20px;"/>  
 </p>
 
